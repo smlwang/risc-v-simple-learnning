@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "*.ss": "scheme",
+        "stdarg.h": "c",
+        "stddef.h": "c",
+        "page.h": "c",
+        "os.h": "c"
+    }
+}

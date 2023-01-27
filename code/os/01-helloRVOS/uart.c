@@ -118,3 +118,7 @@ void uart_puts(char *s)
 	}
 }
 
+char uart_readc() {
+    while ((uart_read_reg(LSR) & LSR_RX_READY) == 0);
+    return uart_read_reg(RHR);
+}

@@ -1,6 +1,6 @@
 #include "os.h"
 
-#define DELAY 4000
+#define DELAY 40
 
 struct userdata {
 	int counter;
@@ -51,10 +51,14 @@ void user_task1(void)
 		task_delay(DELAY);
 	}
 }
-
+void always_shed(void) {
+    uart_puts("always_shed\n");
+    while (1) {}
+}
 /* NOTICE: DON'T LOOP INFINITELY IN main() */
 void os_main(void)
 {
+    task_create(always_shed);
 	task_create(user_task0);
 	task_create(user_task1);
 }

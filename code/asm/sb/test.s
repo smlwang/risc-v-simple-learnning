@@ -17,6 +17,7 @@ _start:
 	li x6, 0xffffffab	# int x6 = 0xffffffab
 	la x5, _array		# array[0] = (char)x6
 	sb x6, 0(x5)
+    sh x6, 1(x5)
 stop:
 	j stop			# Infinite loop to stop execution
 

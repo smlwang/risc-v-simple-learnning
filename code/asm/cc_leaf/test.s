@@ -34,10 +34,11 @@ square:
 
 	# `mul a0, a0, a0` should be fine,
 	# programing as below just to demo we can contine use the stack
-	mv s0, a0
-	mul s1, s0, s0
-	mv a0, s1
-
+	# mv s0, a0
+	# mul s1, s0, s0
+	# mv a0, s1
+    mul a0, a0, a0
+    
 	# epilogue
 	lw s0, 0(sp)
 	lw s1, 4(sp)

@@ -5,9 +5,10 @@ extern void switch_to(struct context *next);
 
 #define MAX_TASKS 10
 #define STACK_SIZE 1024
+#define SLEEP (1 << 0)
 uint8_t task_stack[MAX_TASKS][STACK_SIZE];
 struct context ctx_tasks[MAX_TASKS];
-
+uint8_t flag[MAX_TASKS];
 /*
  * _top is used to mark the max available position of ctx_tasks
  * _current is used to point to the context of current task
@@ -32,9 +33,10 @@ void schedule()
 		panic("Num of task should be greater than zero!");
 		return;
 	}
-
-	_current = (_current + 1) % _top;
-	struct context *next = &(ctx_tasks[_current]);
+    do {
+        _current = (_current + 1) % _top;
+    } while (flag[_current] & SLEEP);
+    struct context *next = &(ctx_tasks[_current]);
 	switch_to(next);
 }
 
@@ -69,13 +71,16 @@ void task_yield()
 	int id = r_mhartid();
 	*(uint32_t*)CLINT_MSIP(id) = 1;
 }
-
+void wake_up(void *task) {
+    *(uint8_t *)task &= ~SLEEP;
+}
 /*
  * a very rough implementaion, just to consume the cpu
  */
 void task_delay(volatile int count)
 {
-	count *= 50000;
-	while (count--);
+    flag[_current] |= SLEEP;
+    timer_create(wake_up, (void *)&flag[_current], count);
+    task_yield();
 }
 

@@ -18,5 +18,7 @@ extern void panic(char *s);
 /* memory management */
 extern void *page_alloc(int npages);
 extern void page_free(void *p);
+extern void *malloc(int size);
+extern void free(void *ptr);
 
 #endif /* __OS_H__ */

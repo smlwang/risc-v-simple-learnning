@@ -15,11 +15,13 @@ _start:
 	# i = 0
 	# while (i < 5) i++;
 
-	li x5, 0
+	li x5, 5
 	li x6, 5
 loop:
+	bne x5, x6, out_loop
 	addi x5, x5, 1
-	bne x5, x6, loop
+    j loop
+out_loop:
 
 stop:
 	j stop			# Infinite loop to stop execution

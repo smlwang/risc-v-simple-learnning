@@ -85,6 +85,10 @@ static int _vsnprintf(char * out, size_t n, const char* s, va_list vl)
 				format = 0;
 				break;
 			}
+            case '%': {
+                out[pos++] = '%';
+                format = 0;
+            }
 			default:
 				break;
 			}

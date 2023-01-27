@@ -21,11 +21,17 @@ void user_task1(void)
 		task_yield();
 	}
 }
-
+void user_clock(void) {
+    uart_puts("system_clock!\n");
+    while (1) {
+        
+    } 
+}
 /* NOTICE: DON'T LOOP INFINITELY IN main() */
 void os_main(void)
 {
-	task_create(user_task0);
-	task_create(user_task1);
+	// task_create(user_task0);
+	// task_create(user_task1);
+    task_create(user_clock);
 }
 

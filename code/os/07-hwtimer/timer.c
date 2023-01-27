@@ -28,11 +28,25 @@ void timer_init()
 	/* enable machine-mode global interrupts. */
 	w_mstatus(r_mstatus() | MSTATUS_MIE);
 }
-
+char time[] = "000000";
+void add(int i) {
+    if (time[i] > '9') {
+        time[i] = '0'; 
+        time[i - 1] += 1;
+    }
+    if (i > 1 && time[i - 1] > '5') {
+        time[i - 1] = '0';
+        time[i - 2] += 1;
+    }
+}
 void timer_handler() 
 {
 	_tick++;
-	printf("tick: %d\n", _tick);
-
+	// printf("tick: %d\n", _tick);
+    time[5] += 1;
+    add(5);
+    add(3);
+    add(1);
+    printf("%c%c:%c%c:%c%c\r", time[0], time[1], time[2], time[3], time[4], time[5]);
 	timer_load(TIMER_INTERVAL);
 }

@@ -61,13 +61,17 @@ struct context {
 	reg_t pc; // offset: 31 *4 = 124
 };
 
-extern int  task_create(void (*task)(void));
+extern int task_create(void (*task)(void* param), 
+                void *param,
+                uint8_t priority,
+                uint32_t timeslice);
 extern void task_delay(volatile int count);
 extern void task_yield();
 
 /* plic */
 extern int plic_claim(void);
 extern void plic_complete(int irq);
+
 
 
 #endif /* __OS_H__ */

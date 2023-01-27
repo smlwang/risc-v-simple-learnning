@@ -41,7 +41,7 @@ reg_t trap_handler(reg_t epc, reg_t cause)
 			uart_puts("timer interruption!\n");
 			break;
 		case 11:
-			uart_puts("external interruption!\n");
+			// uart_puts("external interruption!\n");
 			external_interrupt_handler();
 			break;
 		default:
